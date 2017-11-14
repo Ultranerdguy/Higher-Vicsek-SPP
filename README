@@ -1,0 +1,29 @@
+Simulates a collection of particles in a periodic space interacting according
+to the Vicsek model of Self Propelled Particles.
+https://en.wikipedia.org/wiki/Vicsek_model
+
+The simulation starts with a random factor of 10 radians, and slowly reduces
+this to 0. It records how the particles interact into a file called
+"anvData##.csv" where ## indicates the dimension currently being tested.
+
+The data output to "anvData##.csv" is a measure of how aligned the particles are
+and varies from 0 to 1, where 0 is all particles facing different directions,
+and 1 is all particles facing the same direction.
+
+The simulation will start in 2D, and slowing increment the dimensionality,
+though modifications can be made to only simulate a single dimension. A new
+"anvData" file is made each time it increments.
+
+If you run the program, the files generated will be in the format
+Random Factor, Average anv
+And will be ordered in decreasing 'Random Factor'
+E.g. a sample from anvData4.csv
+
+1.00, 0.097223
+0.99, 0.237802
+0.98, 0.191710
+0.97, 0.162164
+0.96, 0.268714
+
+While the output is noisy, the general relationship shows the average anv to
+decrease as the random factor increases.
