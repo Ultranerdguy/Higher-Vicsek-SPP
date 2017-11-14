@@ -27,3 +27,5 @@ E.g. a sample from anvData4.csv
 
 While the output is noisy, the general relationship shows the average anv to
 decrease as the random factor increases.
+
+Compile the program with 'make'. Uses gcc to compile
