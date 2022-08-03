@@ -1,0 +1,4 @@
+enable_testing()
+
+add_executable(CMakeBuild test_cmakeBuildDef.cpp)
+add_test(NAME CMakeBuild COMMAND $<TARGET_FILE:CMakeBuild>)

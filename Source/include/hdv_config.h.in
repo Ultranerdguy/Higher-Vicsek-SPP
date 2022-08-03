@@ -1,0 +1,10 @@
+// Automatically generated file. Do not modify
+
+namespace HDV
+{
+  namespace VERSION
+  {
+    static constexpr auto const MAJOR = @HDV_VERSION_MAJOR@;
+    static constexpr auto const MINOR = @HDV_VERSION_MINOR@;
+  }
+}
