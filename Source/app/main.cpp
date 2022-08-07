@@ -37,7 +37,6 @@ int counter;
 // Switch pointer
 void *swPtr;
 
-
 int main(int argc, char* argv[])
 {
   // Main loop for the system
@@ -56,7 +55,7 @@ int main(int argc, char* argv[])
     FILE *fanv = fopen(fileName, "w");
 
     // Make an array of ptcl types for the simulation
-    ptcl *swarm = malloc(sizeof(ptcl)*count);
+    ptcl *swarm = (ptcl*)malloc(sizeof(ptcl)*count);
 
     // Initiate values for this sim
     for (i=0; i<count; i++)
@@ -72,8 +71,8 @@ int main(int argc, char* argv[])
     spare1/2: Used as spare memory slots for swapping data
     */
     double avr = 0;
-    double *velSum = malloc(sizeof(double)*dim);
-    double *xSum = malloc(sizeof(double)*dim);
+    double *velSum = (double*)malloc(sizeof(double)*dim);
+    double *xSum = (double*)malloc(sizeof(double)*dim);
     double *spare1;
     double *spare2;
 
@@ -131,7 +130,7 @@ int main(int argc, char* argv[])
       {
         swPtr = swarm[i].curPhi;
         swarm[i].curPhi = swarm[i].newPhi;
-        swarm[i].newPhi = swPtr;
+        swarm[i].newPhi = (double*)swPtr;
 
         spare1 = resolveCart(swarm[i].curPhi);
         spare2 = arrMult(spare1, tStep*vel, dim);
