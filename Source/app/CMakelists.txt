@@ -1,2 +1,2 @@
-add_executable(HDV main.c)
+add_executable(HDV main.cpp)
 target_link_libraries(HDV HDV_SRC)

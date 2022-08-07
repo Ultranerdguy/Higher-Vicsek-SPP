@@ -36,9 +36,9 @@ void printPtcl(ptcl *main)
 }
 
 void ptclInit(ptcl *main, double len) {
-  main->loc = malloc(sizeof(double)*dim);
-  main->curPhi = malloc(sizeof(double)*(dim-1));
-  main->newPhi = malloc(sizeof(double)*(dim-1));
+  main->loc = (double*)malloc(sizeof(double)*dim);
+  main->curPhi = (double*)malloc(sizeof(double)*(dim-1));
+  main->newPhi = (double*)malloc(sizeof(double)*(dim-1));
 
   int i;
   for (i=0; i<dim; i++) {
@@ -90,7 +90,7 @@ int dist(ptcl *main, ptcl *other, double len, double rad) {
 }
 
 double *resolveCart(double *angles) {
-  double *coords = malloc(sizeof(double)*dim);
+  double *coords = (double*)malloc(sizeof(double)*dim);
   int i;
   int j;
   for (i=0; i<dim; i++) {
@@ -109,7 +109,7 @@ double *resolveCart(double *angles) {
 }
 
 double *resolvePolar(double *pos) {
-  double *angles = malloc(sizeof(double)*(dim-1));
+  double *angles = (double*)malloc(sizeof(double)*(dim-1));
   int i;
   double sqSum = pow(pos[dim-1], 2);
   for (i=dim-2; i>=0; i--) {
@@ -125,7 +125,7 @@ double *resolvePolar(double *pos) {
 }
 
 void randAdj(ptcl *main, double randFac) {
-  double *randArr = malloc(sizeof(double)*(dim-1));
+  double *randArr = (double*)malloc(sizeof(double)*(dim-1));
   int i;
   int j;
   for (i=0; i<dim-1; i++) {
@@ -142,7 +142,7 @@ void randAdj(ptcl *main, double randFac) {
   }
   double *curDir = resolveCart(main->newPhi);
   double *randDir = resolveCart(randArr);
-  double *newDir = malloc(sizeof(double)*dim);
+  double *newDir = (double*)malloc(sizeof(double)*dim);
 
   for (i=0; i<dim; i++) {
     newDir[i] = 0;
@@ -200,7 +200,7 @@ void setAll(double *main, double val, int size)
 double *arrMult(double *main, double val, int size)
 {
   int i;
-  double *newArr = malloc(sizeof(double)*size);
+  double *newArr = (double*)malloc(sizeof(double)*size);
   for (i=0; i<size; i++)
   {
     newArr[i] = main[i] * val;
