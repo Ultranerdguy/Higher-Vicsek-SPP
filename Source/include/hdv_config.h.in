@@ -6,5 +6,6 @@ namespace HDV
   {
     static constexpr auto const MAJOR = @HDV_VERSION_MAJOR@;
     static constexpr auto const MINOR = @HDV_VERSION_MINOR@;
+    static constexpr auto const PATCH = @HDV_VERSION_PATCH@;
   }
 }
