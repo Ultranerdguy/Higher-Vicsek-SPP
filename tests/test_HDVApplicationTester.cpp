@@ -5,7 +5,6 @@ int RETURN_CODE = -1;
 
 int main(int argc, char** argv)
 {
-  std::filesystem::current_path("D:\\Users\\Sam Clifton\\source\\repos\\Higher-Vicsek-SPP\\tests\\");
   HDV::Application app;
   app.ParseArguments(argc-1, argv+1);
 
