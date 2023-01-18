@@ -8,49 +8,51 @@ int main(int argc, char** argv)
   HDV::Application app;
   app.ParseArguments(argc-1, argv+1);
 
+  auto& sim = app.GetSimulation();
+
   std::string_view arg;
   if (argc == 1) // Successful build, no arguments
   {
     RETURN_CODE = 0;
   }
   else arg = argv[1];
-  if (arg == "--output-directory" && app.GetOutputDirectory() == std::filesystem::path("ExampleDir/Sub1/Sub2/"))
+  if (arg == "--output-directory" && sim.GetOutputDirectory() == std::filesystem::path("ExampleDir/Sub1/Sub2/"))
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--output-name" && app.GetOutputFilename() == "ExampleOutput")
+  else if (arg == "--output-name" && sim.GetOutputFilename() == "ExampleOutput")
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--dimensions" && app.GetDimensions() == 4)
+  else if (arg == "--dimensions" && sim.GetDimensions() == 4)
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--particle-count" && app.GetParticleCount() == 200)
+  else if (arg == "--particle-count" && sim.GetParticleCount() == 200)
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--search-radius" && app.GetSearchRadius() == 5)
+  else if (arg == "--search-radius" && sim.GetSearchRadius() == 5)
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--speed" && app.GetSpeed() == 6)
+  else if (arg == "--speed" && sim.GetSpeed() == 6)
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--random-rotation" && app.GetRandomRotation() == 3)
+  else if (arg == "--random-rotation" && sim.GetRandomRotation() == 3)
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--random-period" && app.GetRandomPeriod() == 11)
+  else if (arg == "--random-period" && sim.GetRandomPeriod() == 11)
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--record-period" && app.GetRecordPeriod() == 13)
+  else if (arg == "--record-period" && sim.GetRecordPeriod() == 13)
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--config" && app.GetOutputFilename() == "ConfigFileout")
+  else if (arg == "--config" && sim.GetOutputFilename() == "ConfigFileout")
   {
     RETURN_CODE = 0;
   }

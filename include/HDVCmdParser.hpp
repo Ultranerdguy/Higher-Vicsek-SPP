@@ -16,8 +16,8 @@ namespace HDV
     struct Argument
     {
       std::string name;
-      std::string description;
       ParserFunction parser;
+      std::string description;
     };
     
     CmdParser() = default;

@@ -22,3 +22,8 @@ add_test(NAME RandomRotation COMMAND $<TARGET_FILE:HDVApplicationTester> "--rand
 add_test(NAME RandomPeriod COMMAND $<TARGET_FILE:HDVApplicationTester> "--random-period" "11")
 add_test(NAME RecordPeriod COMMAND $<TARGET_FILE:HDVApplicationTester> "--record-period" "13")
 add_test(NAME Config COMMAND $<TARGET_FILE:HDVApplicationTester> "--config" "TestConfig" WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/tests/")
+
+add_executable(HDVSimulationTester test_HDVSimulationTester.cpp)
+target_link_libraries(HDVSimulationTester HDV_SRC)
+
+add_test(NAME HDVSimulationTesterBuild COMMAND $<TARGET_FILE:HDVSimulationTester>)

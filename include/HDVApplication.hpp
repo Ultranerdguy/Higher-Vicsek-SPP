@@ -6,6 +6,7 @@
 #include <filesystem>
 
 #include "HDVCmdParser.hpp"
+#include "HDVSimulation.hpp"
 
 namespace HDV
 {
@@ -18,19 +19,11 @@ namespace HDV
 
     int RunMain();
 
-    std::filesystem::path const& GetOutputDirectory() const noexcept;
-    std::string_view GetOutputFilename() const noexcept;
-    unsigned int GetDimensions() const noexcept;
-    unsigned int GetParticleCount() const noexcept;
-    double GetSearchRadius() const noexcept;
-    double GetSpeed() const noexcept;
-    double GetRandomRotation() const noexcept;
-    unsigned int GetRandomPeriod() const noexcept;
-    unsigned int GetRecordPeriod() const noexcept;
+    Simulation const& GetSimulation() const noexcept;
+    Simulation& GetSimulation() noexcept;
 
   private:
     // Parser setup
-    CmdParser m_parser;
     void CreateArguments();
     void RegisterArguments();
 
@@ -53,21 +46,11 @@ namespace HDV
     int RunVersion();
     int RunHelp();
 
-    std::function<int()> m_main{[this](){return RunApp();}};
-
-    // All arguments, for referencing by "--help"
-    std::vector<CmdParser::Argument> m_arguments;
-
     // Variables
-    std::filesystem::path m_outputDirectory;
-    std::string m_outputFilename;
-    unsigned int m_dimensionCount = 2;
-    unsigned int m_particleCount = 100;
-    double m_searchRadius = 0.1;
-    double m_speed = 0.01;
-    double m_randomRotation = 0.05;
-    unsigned int m_randomPeriod = 100;
-    unsigned int m_recordPeriod = 100;
+    CmdParser m_parser;
+    std::vector<CmdParser::Argument> m_arguments;
+    std::function<int()> m_main{[this](){return RunApp();}};
+    Simulation m_simulation;
   };
 }
 

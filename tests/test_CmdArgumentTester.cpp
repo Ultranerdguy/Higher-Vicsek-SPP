@@ -14,13 +14,13 @@ int main(int argc, char** argv)
   {
     {
       "example_valid"
-      ,"Parse a valid argument"
       , ParseValidArgument
+      ,"Parse a valid argument"
     }
     ,{
       "example_multiple"
-      ,"Parse multiple arguments"
       , ParseMultiArgument
+      ,"Parse multiple arguments"
     }
   };
 
