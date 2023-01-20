@@ -7,9 +7,6 @@
 #include <sstream>
 #include "hdv_config.h"
 
-// Dimension of the simulation
-int dim = 2;
-
 HDV::Application::Application()
 {
   CreateArguments();
@@ -159,7 +156,7 @@ char** HDV::Application::ParseArg_config(char** begin, char** end)
     }
   }
 
-  ParseArguments(arguments.size(), arguments.data());
+  ParseArguments(static_cast<int>(arguments.size()), arguments.data());
   return begin+1;
 }
 char** HDV::Application::ParseArg_output_directory(char** begin, char** end)
