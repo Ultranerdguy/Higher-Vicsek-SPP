@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(CTest)
 
 include_directories(include)
-include_directories(packages)
+add_subdirectory(packages)
 include_directories("${PROJECT_BINARY_DIR}/include")
 add_subdirectory(include)
 add_subdirectory(src)

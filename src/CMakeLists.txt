@@ -7,4 +7,5 @@ add_library(HDV_SRC
   HDVSimulation.cpp
   HDVApplication.cpp
 )
+target_link_libraries(HDV_SRC PUBLIC eigen)
 
