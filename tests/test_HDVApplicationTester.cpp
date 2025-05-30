@@ -1,5 +1,6 @@
 #include <iostream>
 #include "HDVApplication.hpp"
+#include "util.hpp"
 
 int RETURN_CODE = -1;
 
@@ -40,10 +41,14 @@ int main(int argc, char** argv)
   {
     RETURN_CODE = 0;
   }
-  else if (arg == "--random-rotation" && sim.GetRandomRotation() == 3)
+  else if (arg == "--random-rotation" 
+    && sim.GetRandomRotationStart() == 3
+    && sim.GetRandomRotationEnd() == 4
+    && Equal(sim.GetRandomRotationStep(), 0.1,1e-5))
   {
     RETURN_CODE = 0;
   }
+  
   else if (arg == "--random-period" && sim.GetRandomPeriod() == 11)
   {
     RETURN_CODE = 0;
@@ -58,3 +63,4 @@ int main(int argc, char** argv)
   }
   return RETURN_CODE;
 }
+

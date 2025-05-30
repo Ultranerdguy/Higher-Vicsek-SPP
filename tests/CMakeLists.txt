@@ -1,9 +1,10 @@
+cmake_minimum_required(VERSION 3.12)
 include(CTest)
 
 add_executable(CmdArgumentTester test_CmdArgumentTester.cpp)
 target_link_libraries(CmdArgumentTester HDV_SRC)
 
-add_test(NAME CmdArgumentTesterBuild COMMAND $<TARGET_FILE:CmdArgumentTester>)
+add_test(NAME CmdArgumentTesterBuild COMMAND "$<TARGET_FILE:CmdArgumentTester>")
 add_test(NAME SingleOption COMMAND $<TARGET_FILE:CmdArgumentTester> "--example_valid")
 add_test(NAME InvalidOption COMMAND $<TARGET_FILE:CmdArgumentTester> "--example_invalid")
 add_test(NAME SingleOptionWithArguments COMMAND $<TARGET_FILE:CmdArgumentTester> "--example_multiple" "arg1" "arg2")
@@ -18,12 +19,14 @@ add_test(NAME Dimensions COMMAND $<TARGET_FILE:HDVApplicationTester> "--dimensio
 add_test(NAME ParticleCount COMMAND $<TARGET_FILE:HDVApplicationTester> "--particle-count" "200")
 add_test(NAME SearchRadius COMMAND $<TARGET_FILE:HDVApplicationTester> "--search-radius" "5")
 add_test(NAME Speed COMMAND $<TARGET_FILE:HDVApplicationTester> "--speed" "6")
-add_test(NAME RandomRotation COMMAND $<TARGET_FILE:HDVApplicationTester> "--random-rotation" "3")
+add_test(NAME RandomRotation COMMAND $<TARGET_FILE:HDVApplicationTester> "--random-rotation" "3" "4" "0.1")
 add_test(NAME RandomPeriod COMMAND $<TARGET_FILE:HDVApplicationTester> "--random-period" "11")
 add_test(NAME RecordPeriod COMMAND $<TARGET_FILE:HDVApplicationTester> "--record-period" "13")
-add_test(NAME Config COMMAND $<TARGET_FILE:HDVApplicationTester> "--config" "TestConfig" WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/tests/")
+add_test(NAME Config COMMAND $<TARGET_FILE:HDVApplicationTester> "--config" "TestConfig")
+configure_file(TestConfig TestConfig COPYONLY)
 
 add_executable(HDVSimulationTester test_HDVSimulationTester.cpp)
 target_link_libraries(HDVSimulationTester HDV_SRC)
 
 add_test(NAME HDVSimulationTesterBuild COMMAND $<TARGET_FILE:HDVSimulationTester>)
+

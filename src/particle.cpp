@@ -207,3 +207,4 @@ double *arrMult(double *main, double val, int size)
   }
   return newArr;
 }
+

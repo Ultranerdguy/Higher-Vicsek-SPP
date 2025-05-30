@@ -7,6 +7,7 @@
 
 #include "HDVCmdParser.hpp"
 #include "HDVSimulation.hpp"
+#include "HDVDef.hpp"
 
 namespace HDV
 {
@@ -55,3 +56,4 @@ namespace HDV
 }
 
 #endif // #ifndef _HDV_APPLICATION_HPP_
+

@@ -38,29 +38,45 @@ unsigned int HDV::Simulation::GetParticleCount() const noexcept
 {
   return m_particleCount;
 }
-void HDV::Simulation::SetSearchRadius(double searchRadius) noexcept
+void HDV::Simulation::SetSearchRadius(HDV::Float searchRadius) noexcept
 {
   m_searchRadius = searchRadius;
 }
-double HDV::Simulation::GetSearchRadius() const noexcept
+HDV::Float HDV::Simulation::GetSearchRadius() const noexcept
 {
   return m_searchRadius;
 }
-void HDV::Simulation::SetSpeed(double speed) noexcept
+void HDV::Simulation::SetSpeed(HDV::Float speed) noexcept
 {
   m_speed = speed;
 }
-double HDV::Simulation::GetSpeed() const noexcept
+HDV::Float HDV::Simulation::GetSpeed() const noexcept
 {
   return m_speed;
 }
-void HDV::Simulation::SetRandomRotation(double randomRotation) noexcept
+void HDV::Simulation::SetRandomRotationStart(HDV::Float randomRotationStart) noexcept
 {
-  m_randomRotation = randomRotation;
+  m_randomRotationStart = randomRotationStart;
 }
-double HDV::Simulation::GetRandomRotation() const noexcept
+HDV::Float HDV::Simulation::GetRandomRotationStart() const noexcept
 {
-  return m_randomRotation;
+  return m_randomRotationStart;
+}
+void HDV::Simulation::SetRandomRotationEnd(HDV::Float randomRotationEnd) noexcept
+{
+  m_randomRotationEnd = randomRotationEnd;
+}
+HDV::Float HDV::Simulation::GetRandomRotationEnd() const noexcept
+{
+  return m_randomRotationEnd;
+}
+void HDV::Simulation::SetRandomRotationStep(HDV::Float randomRotationStep) noexcept
+{
+  m_randomRotationStep = randomRotationStep;
+}
+HDV::Float HDV::Simulation::GetRandomRotationStep() const noexcept
+{
+  return m_randomRotationStep;
 }
 void HDV::Simulation::SetRandomPeriod(unsigned int randomPeriod) noexcept
 {
@@ -96,7 +112,7 @@ int HDV::Simulation::Run()
   #define rad m_searchRadius
   #define vel m_speed
   #define tStep 1.0
-  #define randStart m_randomRotation
+  #define randStart m_randomRotationStart
   #define avrCount m_recordPeriod
   #define randReduct 0.01
   #define ticks (randStart*avrCount*(1/randReduct))+600
@@ -104,7 +120,7 @@ int HDV::Simulation::Run()
   #define PI 3.141592653589793
 
   // Iterator variables
-  int i;
+  unsigned int i;
   unsigned int j;
   int step;
   // For counting things
@@ -246,3 +262,65 @@ int HDV::Simulation::Run()
 
   return 0;
 }
+
+int HDV::Simulation::RunSim()
+{
+  // Create and setup particles
+  m_particles.clear();
+  m_particles.reserve(m_particleCount);
+  for (unsigned int i = 0; i < m_particleCount; ++i)
+  {
+    m_particles.emplace_back(HDV::Particle(m_dimensionCount, m_generator));
+  }
+
+  auto randomRotation = m_randomRotationStart;
+  auto randomStep = m_randomRotationStep; 
+  // Adjust step to go from end to start
+  if ((m_randomRotationEnd-randomRotation) * randomStep < 0)
+  {
+    randomStep = -m_randomRotationStep;
+  }
+  // Add an extra step  to randomEnd to include it (also helps when m_randomRotationStart == m_randomRotationEnd)
+  auto randomEnd = m_randomRotationEnd + randomStep;
+
+  auto const radius2 = (m_searchRadius*m_searchRadius);
+  // Mainloop. Expression takes care of random rotation increasing or decreasing towards randomEnd
+  unsigned int counter = 0;
+  while ((randomEnd-randomRotation) * randomStep > 0)
+  {
+    for (unsigned int i = 0; i < m_particleCount; ++i)
+    {
+      m_particles[i].ResetNextDirection();
+      for (unsigned int j = i+1; j < m_particleCount; ++j)
+      {
+        if (Distance2(m_particles[i], m_particles[j]) < radius2)
+        {
+          m_particles[i].AddNextDirection(m_particles[j].GetCurrentDirection());
+        }
+      }
+    }
+
+    for (auto& particle : m_particles)
+    {
+      particle.SwapDirections();
+      particle.Wobble(randomRotation);
+      particle.Step(m_speed);
+      particle.Wrap();
+    }
+    
+    ++counter;
+
+    if ((counter % m_randomPeriod) == 0)
+    {
+      randomRotation += randomStep;
+    }
+
+    if ((counter % m_recordPeriod) == 0)
+    {
+      // Log
+    }
+  }
+  
+  return 0;
+}
+

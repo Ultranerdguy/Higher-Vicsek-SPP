@@ -1,5 +1,5 @@
-#ifndef PARTICLE_HEADER
-#define PARTICLE_HEADER
+#ifndef _HDV_PARTICLE_H_
+#define _HDV_PARTICLE_H_
 
 typedef struct ptcl {
 	double *loc;
@@ -54,4 +54,6 @@ void setAll(double *main, double val, int size);
 
 // Multiplies every element of main by val, and returns a new array
 double *arrMult(double *main, double val, int size);
-#endif
+
+#endif // #ifndef PARTICLE_HEADER
+

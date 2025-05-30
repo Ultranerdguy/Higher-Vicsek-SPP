@@ -38,3 +38,4 @@ std::string const& HDV::CmdParser::GetDelimiter() const
 {
   return m_delimiter;
 }
+

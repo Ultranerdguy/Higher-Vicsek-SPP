@@ -9,3 +9,4 @@ namespace HDV
     static constexpr auto const PATCH = @HDV_VERSION_PATCH@;
   }
 }
+

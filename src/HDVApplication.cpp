@@ -236,7 +236,7 @@ char** HDV::Application::ParseArg_search_radius(char** begin, char** end)
     throw std::runtime_error(std::string("Missing parameter: ") + arg);
   }
   std::stringstream searchRadiusStrm(*begin);
-  double searchRadius{};
+  HDV::Float searchRadius{};
   if (!(searchRadiusStrm >> searchRadius))
   {
     throw std::runtime_error(std::string("Unable to read search radius: ") + *begin);
@@ -255,7 +255,7 @@ char** HDV::Application::ParseArg_speed(char** begin, char** end)
     throw std::runtime_error(std::string("Missing parameter: ") + arg);
   }
   std::stringstream speedStrm(*begin);
-  double speed{};
+  HDV::Float speed{};
   if (!(speedStrm >> speed))
   {
     throw std::runtime_error(std::string("Unable to read speed: ") + *begin);
@@ -273,13 +273,41 @@ char** HDV::Application::ParseArg_random_rotation(char** begin, char** end)
   {
     throw std::runtime_error(std::string("Missing parameter: ") + arg);
   }
-  std::stringstream randomRotationStrm(*begin);
-  double randomRotation{};
-  if (!(randomRotationStrm >> randomRotation))
+  std::stringstream randomRotationStartStrm;
+  randomRotationStartStrm << *begin;
+  HDV::Float randomRotationStart{};
+  if (!(randomRotationStartStrm >> randomRotationStart))
   {
     throw std::runtime_error(std::string("Unable to read random rotation: ") + *begin);
   }
-  m_simulation.SetRandomRotation(randomRotation);
+  m_simulation.SetRandomRotationStart(randomRotationStart);
+  HDV::Float randomRotationEnd = randomRotationStart;
+  HDV::Float randomRotationStep = 0.05f;
+
+  ++begin;
+  if (begin == end)
+  {
+    return begin;
+  }
+  std::stringstream randomRotationStartEnd(*begin);
+  if (!(randomRotationStartEnd >> randomRotationEnd))
+  {
+    return begin;
+  }
+  m_simulation.SetRandomRotationEnd(randomRotationEnd);
+  
+  ++begin;
+  if (begin == end)
+  {
+    return begin;
+  }
+  std::stringstream randomRotationStartStep(*begin);
+  if (!(randomRotationStartStep >> randomRotationStep))
+  {
+    return begin;
+  }
+  m_simulation.SetRandomRotationStep(randomRotationStep);
+  
   return begin+1;
 }
 char** HDV::Application::ParseArg_random_period(char** begin, char** end)
@@ -352,3 +380,4 @@ int HDV::Application::RunApp()
 {
   return m_simulation.Run();
 }
+
