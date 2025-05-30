@@ -2,7 +2,7 @@
 #define _HDV_DEF_HPP_
 
 #include <random>
-#include "Eigen/Dense"
+#include <Eigen/Dense>
 
 namespace HDV
 {
